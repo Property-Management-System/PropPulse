@@ -1,8 +1,40 @@
-version: '3.4'
-
+---
+version: "2"
 services:
-  hospitalphp:
-    image: hospitalphp
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    www:
+        build: .
+        ports:
+            - "80:80"
+        volumes:
+            - ./www:/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+    db:
+        image: mysql:5.7.28
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: myDb
+            MYSQL_USER: rimah
+            MYSQL_PASSWORD: rimah
+            MYSQL_ROOT_PASSWORD: rimah
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - db:db
+        ports:
+            - 82:80
+        environment:
+            MYSQL_USER: rimah
+            MYSQL_PASSWORD: rimah
+            MYSQL_ROOT_PASSWORD: rimah
+volumes:
+    persistent:
+
