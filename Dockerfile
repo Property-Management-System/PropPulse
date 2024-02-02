@@ -1,5 +1,3 @@
 #Base image
-FROM php:7.2-apache
-
-#Install musqli
-RUN docker-php-ext-install mysqli
+FROM mysql:5.7.28
+RUN mysql -u oijef 
