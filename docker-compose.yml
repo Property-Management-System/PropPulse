@@ -17,10 +17,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: myDb
-            MYSQL_USER: rimah
-            MYSQL_PASSWORD: rimah
-            MYSQL_ROOT_PASSWORD: rimah
+            MYSQL_DATABASE: hmisphp
+            MYSQL_USER: root
+            MYSQL_PASSWORD:
+            MYSQL_ROOT_PASSWORD:
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - persistent:/var/lib/mysql
@@ -33,9 +33,9 @@ services:
         ports:
             - 82:80
         environment:
-            MYSQL_USER: rimah
-            MYSQL_PASSWORD: rimah
-            MYSQL_ROOT_PASSWORD: rimah
+            MYSQL_USER: root
+            MYSQL_PASSWORD:
+            MYSQL_ROOT_PASSWORD:
 volumes:
     persistent:
 
