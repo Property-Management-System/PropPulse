@@ -55,10 +55,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    <img src="assets/images/logo-dark.png" alt="" height="90">
+                    <br> <br> <br> <br>
+                </div>
+            </div>
+            <div class="row">
+                <br><br>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
                     <h4>PropPulse, a Hospital Management System</h4>
                     <h1>Nurturing a Better Life with PropPulse</h1>
                     <p>A System that is designed to optimize staff management and enhance overall healthcare operations.</p>
                 </div>
+            </div>
+            <div class="row">
+                <br><br>
             </div>
         </div>
     </section>
