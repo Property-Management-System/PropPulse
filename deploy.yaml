@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rimah-web-service
+spec:
+  selector:
+    app: rimah-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rimah-web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rimah-web
+  template:
+    metadata:
+      labels:
+        app: rimah-web
+    spec:
+      containers:
+      - name: rimah-container
+        image: rimah/rimah:1.0.215
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rimah-db-service
+spec:
+  selector:
+    app: rimah-db
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP # Change to ClusterIP, as you don't need external access
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: database-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  # Add appropriate storage configuration for your environment
+  storageClassName: manual
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  # Reference the previously defined PersistentVolume by name
+  volumeName: database-pv
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rimah-db-statefulset
+spec:
+  replicas: 1
+  serviceName: rimah-db-service
+  selector:
+    matchLabels:
+      app: rimah-db
+  template:
+    metadata:
+      labels:
+        app: rimah-db
+    spec:
+      containers:
+      - name: mysql-container
+        image: rimah/mysql:1.0.226
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: mydatabase
+        - name: MYSQL_USER
+          value: myuser
+        - name: MYSQL_PASSWORD
+          value: mypassword
+        volumeMounts:
+        - name: database-volume
+          mountPath: /var/lib/mysql  # Mount path within the container
+  volumeClaimTemplates:
+  - metadata:
+      name: database-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rimah-phpmyadmin-service
+spec:
+  selector:
+    app: rimah-phpmyadmin
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rimah-phpmyadmin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rimah-phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: rimah-phpmyadmin
+    spec:
+      containers:
+      - name: phpmyadmin-container
+        image: rimah/php:1.0.157
+        ports:
+        - containerPort: 80
+        env:
+        - name: PMA_HOST
+          value: rimah-db-service # Use the service name for MySQL
+        - name: PMA_USER
+          value: myuser
+        - name: PMA_PASSWORD
+          value: mypassword
