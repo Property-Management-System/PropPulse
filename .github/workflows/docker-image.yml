@@ -39,7 +39,7 @@ jobs:
       run: docker build -t bahaaaboushakra/deployment:tagname .
 
     - name: Log into Docker Hub
-      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u bahaaaboushakra --bUPP6yJGLV
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u username --password
 
     - name: Push Docker Image to Docker Hub
       run: docker push bahaaaboushakra/deployment:tagname
