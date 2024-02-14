@@ -5,9 +5,9 @@ FROM mysql:latest
 ENV MYSQL_ROOT_PASSWORD=root
 
 # Create a database and user
-ENV MYSQL_DATABASE=mydatabase
-ENV MYSQL_USER=rimah
-ENV MYSQL_PASSWORD=rimah
+ENV MYSQL_DATABASE=hmisphp
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=
 
 # When container starts, execute the following SQL script
 COPY ./init.sql /docker-entrypoint-initdb.d/
