@@ -76,8 +76,11 @@
     </head>
 
     <body class="authentication-bg authentication-bg-pattern">
-
+    
         <div class="account-pages mt-5 mb-5">
+        <video autoplay muted loop>
+  <source src="assets/images/your-video.mp4" type="video/mp4">
+</video>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
