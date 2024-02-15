@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimah-web-service
+  name: rimahhd-web-service
 spec:
   selector:
-    app: rimah-web
+    app: rimahhd-web
   ports:
     - protocol: TCP
       port: 80
@@ -15,20 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rimah-web-deployment
+  name: rimahhd-web-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rimah-web
+      app: rimahhd-web
   template:
     metadata:
       labels:
-        app: rimah-web
+        app: rimahhd-web
     spec:
       containers:
-      - name: rimah-container
-        image: rimah/rimah:1.0.215
+      - name: rimahhd-container
+        image: rimahhd/rimahhd:1.0.215
         ports:
         - containerPort: 80
 
@@ -36,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimah-db-service
+  name: rimahhd-db-service
 spec:
   selector:
-    app: rimah-db
+    app: rimahhd-db
   ports:
     - protocol: TCP
       port: 3306
@@ -78,21 +78,21 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: rimah-db-statefulset
+  name: rimahhd-db-statefulset
 spec:
   replicas: 1
-  serviceName: rimah-db-service
+  serviceName: rimahhd-db-service
   selector:
     matchLabels:
-      app: rimah-db
+      app: rimahhd-db
   template:
     metadata:
       labels:
-        app: rimah-db
+        app: rimahhd-db
     spec:
       containers:
       - name: mysql-container
-        image: rimah/mysql:1.0.226
+        image: rimahhd/mysql:1.0.226
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
@@ -118,10 +118,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimah-phpmyadmin-service
+  name: rimahhd-phpmyadmin-service
 spec:
   selector:
-    app: rimah-phpmyadmin
+    app: rimahhd-phpmyadmin
   ports:
     - protocol: TCP
       port: 8080
@@ -132,25 +132,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rimah-phpmyadmin-deployment
+  name: rimahhd-phpmyadmin-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rimah-phpmyadmin
+      app: rimahhd-phpmyadmin
   template:
     metadata:
       labels:
-        app: rimah-phpmyadmin
+        app: rimahhd-phpmyadmin
     spec:
       containers:
       - name: phpmyadmin-container
-        image: rimah/php:1.0.157
+        image: rimahhd/php:1.0.157
         ports:
         - containerPort: 80
         env:
         - name: PMA_HOST
-          value: rimah-db-service # Use the service name for MySQL
+          value: rimahhd-db-service # Use the service name for MySQL
         - name: PMA_USER
           value: myuser
         - name: PMA_PASSWORD
