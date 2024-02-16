@@ -28,11 +28,7 @@ spec:
     spec:
       containers:
       - name: rimahhd-container
-<<<<<<< HEAD
-        image: rimahhd/rimahhd:1.0.26
-=======
-        image: rimahhd/rimahhd:1.0.25
->>>>>>> fc8671956fd41891ec4a8f60b261ff8eab878ffe
+        image: rimahhd/rimahhd:1.0.27
         ports:
         - containerPort: 80
 
@@ -40,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimahhd-db-service
+  name: wissam-db-service
 spec:
   selector:
-    app: rimahhd-db
+    app: wissam-db
   ports:
     - protocol: TCP
       port: 3306
@@ -53,16 +49,18 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: database-pv
+  name: mysql-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 10Gi  # Adjust the storage capacity as needed
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  # Add appropriate storage configuration for your environment
-  storageClassName: manual
+  storageClassName: standard  # Update with the appropriate storage class name
+  hostPath:
+    path: /var/lib/mysql  # Update with the appropriate host path
+
 
 ---
 apiVersion: v1
@@ -76,36 +74,32 @@ spec:
     requests:
       storage: 1Gi
   # Reference the previously defined PersistentVolume by name
-  volumeName: database-pv
+  volumeName: mysql-pv
 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: rimahhd-db-statefulset
+  name: wissam-db-statefulset
 spec:
   replicas: 1
-  serviceName: rimahhd-db-service
+  serviceName: wissam-db-service
   selector:
     matchLabels:
-      app: rimahhd-db
+      app: wissam-db
   template:
     metadata:
       labels:
-        app: rimahhd-db
+        app: wissam-db
     spec:
       containers:
       - name: mysql-container
-<<<<<<< HEAD
-        image: rimahhd/mysql:1.0.26
-=======
-        image: rimahhd/mysql:1.0.25
->>>>>>> fc8671956fd41891ec4a8f60b261ff8eab878ffe
+        image: rimahhd/mysql:1.0.27
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
         - name: MYSQL_DATABASE
-          value: mydatabase
+          value: mydatabasewissam
         - name: MYSQL_USER
           value: myuser
         - name: MYSQL_PASSWORD
@@ -153,16 +147,12 @@ spec:
     spec:
       containers:
       - name: phpmyadmin-container
-<<<<<<< HEAD
-        image: rimahhd/php:1.0.26
-=======
-        image: rimahhd/php:1.0.25
->>>>>>> fc8671956fd41891ec4a8f60b261ff8eab878ffe
+        image: rimahhd/php:1.0.27
         ports:
         - containerPort: 80
         env:
         - name: PMA_HOST
-          value: rimahhd-db-service # Use the service name for MySQL
+          value: wissam-db-service # Use the service name for MySQL
         - name: PMA_USER
           value: myuser
         - name: PMA_PASSWORD
