@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: rimahhd-container
-        image: rimahhd/rimahhd:1.0.215
+        image: rimahhd/rimahhd:1.0.26
         ports:
         - containerPort: 80
 
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
       - name: mysql-container
-        image: rimahhd/mysql:1.0.226
+        image: rimahhd/mysql:1.0.26
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
@@ -145,7 +145,7 @@ spec:
     spec:
       containers:
       - name: phpmyadmin-container
-        image: rimahhd/php:1.0.157
+        image: rimahhd/php:1.0.26
         ports:
         - containerPort: 80
         env:
