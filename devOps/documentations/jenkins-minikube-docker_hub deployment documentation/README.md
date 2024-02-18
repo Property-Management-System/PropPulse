@@ -1,1 +1,1 @@
-# monitor-log
+# jenkins-minikube-docker_hub deployment
