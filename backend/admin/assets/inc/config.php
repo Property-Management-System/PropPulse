@@ -1,7 +1,7 @@
 <?php
-$dbuser="root";
-$dbpass="";
-$host="wissam-db-service";
+$dbuser="myuser";
+$dbpass="mypassword";
+$servername="wissam-db-service";
 $db="mydatabasewissam";
-$mysqli=new mysqli($host,$dbuser, $dbpass, $db);
+$mysqli=new mysqli($servername,$dbuser, $dbpass, $db);
 ?>
