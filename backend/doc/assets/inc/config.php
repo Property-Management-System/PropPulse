@@ -2,6 +2,6 @@
 $dbuser="myuser";
 $dbpass="mypass";
 $host="rimah-db-service";
-$db="hmisphp";
+$db="mydatabasewissam";
 $mysqli=new mysqli($host,$dbuser, $dbpass, $db);
 ?>
