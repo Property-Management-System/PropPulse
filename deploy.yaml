@@ -83,7 +83,7 @@ metadata:
   name: rimahd-db-statefulset
 spec:
   replicas: 1
-  serviceName: rimahd-db-service
+  serviceName: wissam-db-service
   selector:
     matchLabels:
       app: rimahd-db
@@ -99,7 +99,7 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           value: root
         - name: MYSQL_DATABASE
-          value: mydatabaserimah
+          value: mydatabasewissam
         - name: MYSQL_USER
           value: myuser
         - name: MYSQL_PASSWORD
@@ -152,7 +152,7 @@ spec:
         - containerPort: 80
         env:
         - name: PMA_HOST
-          value: rimahd-db-service # Use the service name for MySQL
+          value: wissam-db-service # Use the service name for MySQL
         - name: PMA_USER
           value: myuser
         - name: PMA_PASSWORD
