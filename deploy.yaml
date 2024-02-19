@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimahhd-web-service
+  name: rimahd-web-service
 spec:
   selector:
-    app: rimahhd-web
+    app: rimahd-web
   ports:
     - protocol: TCP
       port: 80
@@ -15,20 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rimahhd-web-deployment
+  name: rimahd-web-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rimahhd-web
+      app: rimahd-web
   template:
     metadata:
       labels:
-        app: rimahhd-web
+        app: rimahd-web
     spec:
       containers:
-      - name: rimahhd-container
-        image: rimahhd/rimahhd:1.0.27
+      - name: rimahd-container
+        image: rimahd/rimahd:2.0.53
         ports:
         - containerPort: 80
 
@@ -36,10 +36,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wissam-db-service
+  name: rimahd-db-service
 spec:
   selector:
-    app: wissam-db
+    app: rimahd-db
   ports:
     - protocol: TCP
       port: 3306
@@ -80,26 +80,26 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: wissam-db-statefulset
+  name: rimahd-db-statefulset
 spec:
   replicas: 1
-  serviceName: wissam-db-service
+  serviceName: rimahd-db-service
   selector:
     matchLabels:
-      app: wissam-db
+      app: rimahd-db
   template:
     metadata:
       labels:
-        app: wissam-db
+        app: rimahd-db
     spec:
       containers:
       - name: mysql-container
-        image: rimahhd/mysql:1.0.27
+        image: rimahd/mysql:2.0.50
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
         - name: MYSQL_DATABASE
-          value: mydatabasewissam
+          value: mydatabaserimah
         - name: MYSQL_USER
           value: myuser
         - name: MYSQL_PASSWORD
@@ -120,10 +120,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rimahhd-phpmyadmin-service
+  name: rimahd-phpmyadmin-service
 spec:
   selector:
-    app: rimahhd-phpmyadmin
+    app: rimahd-phpmyadmin
   ports:
     - protocol: TCP
       port: 8080
@@ -134,25 +134,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rimahhd-phpmyadmin-deployment
+  name: rimahd-phpmyadmin-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rimahhd-phpmyadmin
+      app: rimahd-phpmyadmin
   template:
     metadata:
       labels:
-        app: rimahhd-phpmyadmin
+        app: rimahd-phpmyadmin
     spec:
       containers:
       - name: phpmyadmin-container
-        image: rimahhd/php:1.0.27
+        image: rimahd/php:2.0.34
         ports:
         - containerPort: 80
         env:
         - name: PMA_HOST
-          value: wissam-db-service # Use the service name for MySQL
+          value: rimahd-db-service # Use the service name for MySQL
         - name: PMA_USER
           value: myuser
         - name: PMA_PASSWORD
