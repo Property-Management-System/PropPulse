@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h4>PropPulse, a Hospital Management System</h4>
-                    <h1>Nurturing a Better Life with PropPulse</h1>
+                    <h1>Nurturing a Better Life with PropPulsetest</h1>
                   
                 </div>
             </div>
