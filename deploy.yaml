@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: rimahhd-container
-        image: rimahhd/rimahhd:1.0.52
+        image: rimahhd/rimahhdp:1.0.52
         ports:
         - containerPort: 80
 
@@ -83,7 +83,7 @@ metadata:
   name: rimahhd-db-statefulset
 spec:
   replicas: 1
-  serviceName: wissam-db-service
+  serviceName: rimah-db-service
   selector:
     matchLabels:
       app: rimahhd-db
@@ -94,7 +94,7 @@ spec:
     spec:
       containers:
       - name: mysql-container
-        image: rimahhd/mysql:1.0.27
+        image: rimahhd/mysqlp:1.0.27
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
@@ -147,7 +147,7 @@ spec:
     spec:
       containers:
       - name: phpmyadmin-container
-        image: rimahhd/php:1.0.27
+        image: rimahhd/phpp:1.0.27
         ports:
         - containerPort: 80
         env:
