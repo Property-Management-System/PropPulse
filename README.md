@@ -26,8 +26,3 @@ We welcome contributions from the community! Whether it's bug fixes, feature enh
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Contact
-If you have any questions, suggestions, or feedback, feel free to reach out to us at email@example.com.
-
-Links
-http://localhost/Hospital-PHP/index.php
